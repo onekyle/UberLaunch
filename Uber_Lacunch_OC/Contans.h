@@ -18,3 +18,5 @@ UIKIT_EXTERN const NSTimeInterval kRippleMagnitudeMultiplier;
 
 #define UberBlue [UIColor colorWithRed:15/255.0 green:78/255.0 blue:101/255.0 alpha:1.0]
 #define UberLightBlue [UIColor colorWithRed:77/255.0 green:181/255.0 blue:217/255.0 alpha:1.0]
+
+#define DELAYRUN(t,block) dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(t * NSEC_PER_SEC)), dispatch_get_main_queue(), block)
