@@ -72,13 +72,13 @@
     transformAnimation.timingFunction = self.strokeEndTimingFunction;
     transformAnimation.duration = kAnimationDuration - kAnimationDurationDelay;
     
-    CATransform3D startingTransform = CATransform3DMakeRotation(-M_PI_4, 0, 0, 1);
+    CATransform3D startingTransform = CATransform3DMakeRotation((CGFloat)-M_PI_4, 0, 0, 1);
     startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1);
     transformAnimation.fromValue = [NSValue valueWithCATransform3D:startingTransform];
     transformAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)];
     
     // Group
-    CAAnimationGroup *groupAnimation = [CAAnimationGroup new];
+    CAAnimationGroup *groupAnimation = [CAAnimationGroup animation];
     groupAnimation.animations = @[strokeEndAnimation, transformAnimation];
     groupAnimation.repeatCount = MAXFLOAT;
     groupAnimation.duration = kAnimationDuration;
@@ -95,7 +95,7 @@
     lineWidthAnimation.values = @[@(0.0),@(5.0),@(0.0)];
     lineWidthAnimation.timingFunctions = @[self.strokeEndTimingFunction, self.circleLayerTimingFunction];
     lineWidthAnimation.duration = kAnimationDuration;
-    lineWidthAnimation.keyTimes = @[@(0.0),@((kAnimationDuration - kAnimationDuration) / kAnimationDuration),@(1.0)];
+    lineWidthAnimation.keyTimes = @[@(0.0),@((kAnimationDuration - kAnimationDurationDelay) / kAnimationDuration),@(1.0)];
     // transform
     CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     transformAnimation.timingFunctions = @[self.strokeEndTimingFunction,self.circleLayerTimingFunction];
@@ -119,18 +119,11 @@
 -(CAShapeLayer *)generateCircleLayer
 {
     CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-    layer.position = CGPointZero;
-    layer.frame = CGRectZero;
-    layer.allowsGroupOpacity = YES;
-    layer.lineWidth = 5.0;
-    layer.strokeColor = [UIColor yellowColor].CGColor;
-    
-    UIBezierPath *bezierPath = [UIBezierPath bezierPath];
-    [bezierPath moveToPoint:CGPointZero];
-    [bezierPath addLineToPoint:CGPointMake(0.0, -_radius)];
-    
-    layer.path = bezierPath.CGPath;
-    return layer;    
+    layer.lineWidth = _radius;
+    layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:_radius/2 startAngle:(CGFloat)-M_PI_2 endAngle:(CGFloat)(3 * M_PI_2) clockwise:YES].CGPath;
+    layer.strokeColor = [UIColor whiteColor].CGColor;
+    layer.fillColor = [UIColor clearColor].CGColor;
+    return layer;
 }
 
 -(CAShapeLayer *)generateLineLayer

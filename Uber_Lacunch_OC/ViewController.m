@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "AnimatedULogoView.h"
+#import "Contans.h"
 
 @interface ViewController ()
 @property (nonatomic,strong) AnimatedULogoView *animatedView;
@@ -19,7 +20,7 @@
     [super viewDidLoad];
     _animatedView = [[AnimatedULogoView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.view addSubview:_animatedView];
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = UberBlue;
 }
 
 -(void)viewDidAppear:(BOOL)animated
