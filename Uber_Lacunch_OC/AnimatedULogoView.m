@@ -41,8 +41,10 @@
         _beginTime = 0;
         
         _circleLayer = [self generateCircleLayer];
+        _lineLayer = [self generateLineLayer];
         
         [self.layer addSublayer:_circleLayer];
+        [self.layer addSublayer:_lineLayer];
     }
     return self;
 }
@@ -52,6 +54,7 @@
     _beginTime = CACurrentMediaTime();
     self.layer.anchorPoint = CGPointZero;
     [self animateCircleLayer];
+    [self animateLineLayer];
 }
 
 
@@ -92,35 +95,24 @@
     lineWidthAnimation.values = @[@(0.0),@(5.0),@(0.0)];
     lineWidthAnimation.timingFunctions = @[self.strokeEndTimingFunction, self.circleLayerTimingFunction];
     lineWidthAnimation.duration = kAnimationDuration;
-    lineWidthAnimation.keyTimes = @[@(0.0),@((kAnimationDuration - kAnimationDuration)]
-    
-    let lineWidthAnimation = CAKeyframeAnimation(keyPath: "lineWidth")
-    lineWidthAnimation.values = [0.0, 5.0, 0.0]
-    lineWidthAnimation.timingFunctions = [strokeEndTimingFunction, circleLayerTimingFunction]
-    lineWidthAnimation.duration = kAnimationDuration
-    lineWidthAnimation.keyTimes = [0.0, (kAnimationDuration - kAnimationDurationDelay) / kAnimationDuration , 1.0]
-    
+    lineWidthAnimation.keyTimes = @[@(0.0),@((kAnimationDuration - kAnimationDuration) / kAnimationDuration),@(1.0)];
     // transform
-    let transformAnimation = CAKeyframeAnimation(keyPath: "transform")
-    transformAnimation.timingFunctions = [strokeEndTimingFunction, circleLayerTimingFunction]
-    transformAnimation.duration = kAnimationDuration
-    transformAnimation.keyTimes = [0.0, (kAnimationDuration - kAnimationDurationDelay) / kAnimationDuration , 1.0]
-    
-    var transform = CATransform3DMakeRotation(CGFloat(7.0 * M_PI_4), 0.0, 0.0, 1.0)
-    transform = CATransform3DScale(transform, 0.25, 0.25, 1.0)
-    transformAnimation.values = [NSValue(CATransform3D: transform),
-                                 NSValue(CATransform3D: CATransform3DIdentity),
-                                 NSValue(CATransform3D: CATransform3DMakeScale(0.15, 0.15, 1.0))]
+    CAKeyframeAnimation *transformAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    transformAnimation.timingFunctions = @[self.strokeEndTimingFunction,self.circleLayerTimingFunction];
+    transformAnimation.duration = kAnimationDuration;
+    transformAnimation.keyTimes = @[@(0.0),@((kAnimationDuration - kAnimationDurationDelay) / kAnimationDuration),@(1.0)];
+    CATransform3D transform = CATransform3DMakeRotation((CGFloat)(7.0 * M_PI_4), 0.0, 0.0, 1.0);
+    transformAnimation.values = @[[NSValue valueWithCATransform3D:transform],[NSValue valueWithCATransform3D:CATransform3DIdentity],[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.15, 0.15, 1.0)]];
     
     // Group
-    let groupAnimation = CAAnimationGroup()
-    groupAnimation.repeatCount = Float.infinity
-    groupAnimation.removedOnCompletion = false
-    groupAnimation.duration = kAnimationDuration
-    groupAnimation.beginTime = beginTime
-    groupAnimation.animations = [lineWidthAnimation, transformAnimation ]
-    groupAnimation.timeOffset = startTimeOffset
-    lineLayer.addAnimation(groupAnimation, forKey: "looping")
+    CAAnimationGroup *groupAnimation = [CAAnimationGroup animation];
+    groupAnimation.repeatCount = MAXFLOAT;
+    groupAnimation.removedOnCompletion = NO;
+    groupAnimation.duration = kAnimationDuration;
+    groupAnimation.beginTime = _beginTime;
+    groupAnimation.animations = @[lineWidthAnimation, transformAnimation];
+    groupAnimation.timeOffset = _startTimeOffset;
+    [_lineLayer addAnimation:groupAnimation forKey:@"looping"];
 }
 
 
@@ -131,7 +123,7 @@
     layer.frame = CGRectZero;
     layer.allowsGroupOpacity = YES;
     layer.lineWidth = 5.0;
-    layer.strokeColor = UberBlue.CGColor;
+    layer.strokeColor = [UIColor yellowColor].CGColor;
     
     UIBezierPath *bezierPath = [UIBezierPath bezierPath];
     [bezierPath moveToPoint:CGPointZero];
