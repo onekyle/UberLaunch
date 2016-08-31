@@ -45,7 +45,9 @@
         _circleLayer = [self generateCircleLayer];
         _lineLayer = [self generateLineLayer];
         _squareLayer = [self generateSquareLayer];
+        _maskLayer = [self generateMaskLayer];
         
+        self.layer.mask = _maskLayer;
         [self.layer addSublayer:_circleLayer];
         [self.layer addSublayer:_lineLayer];
         [self.layer addSublayer:_squareLayer];
@@ -57,10 +59,42 @@
 {
     _beginTime = CACurrentMediaTime();
     self.layer.anchorPoint = CGPointZero;
+    [self animateMaskLayer];
     [self animateCircleLayer];
     [self animateLineLayer];
     [self animateSquareLayer];
 }
+
+-(void) animateMaskLayer
+{
+    // bounds
+    CABasicAnimation *boundsAnimation = [CABasicAnimation animationWithKeyPath:@"bounds"];
+    boundsAnimation.fromValue = [NSValue valueWithCGRect:CGRectMake(0, 0, _radius * 2, _radius * 2)];
+    boundsAnimation.toValue = [NSValue valueWithCGRect:CGRectMake(0, 0,2.0/3.0 * _squareLayerLength, 2.0/3.0 * _squareLayerLength)];
+    boundsAnimation.duration = kAnimationDurationDelay;
+    boundsAnimation.beginTime = kAnimationDuration - kAnimationDurationDelay;
+    boundsAnimation.timingFunction = self.circleLayerTimingFunction;
+    
+    // cornerRadius
+    CABasicAnimation *cornerRadiusAnimation = [CABasicAnimation animationWithKeyPath:@"cornerRadius"];
+    cornerRadiusAnimation.beginTime = kAnimationDuration - kAnimationDurationDelay;
+    cornerRadiusAnimation.duration = kAnimationDurationDelay;
+    cornerRadiusAnimation.fromValue = @(_radius);
+    cornerRadiusAnimation.toValue = @2;
+    cornerRadiusAnimation.timingFunction = self.circleLayerTimingFunction;
+    
+    // Group
+    CAAnimationGroup *groupAnimation = [CAAnimationGroup animation];
+    groupAnimation.removedOnCompletion = NO;
+    groupAnimation.fillMode = kCAFillModeBoth;
+    groupAnimation.beginTime = _beginTime;
+    groupAnimation.repeatCount = MAXFLOAT;
+    groupAnimation.duration = kAnimationDuration;
+    groupAnimation.animations = @[boundsAnimation, cornerRadiusAnimation];
+    groupAnimation.timeOffset = _startTimeOffset;
+    [_maskLayer addAnimation:groupAnimation forKey:@"looping"];
+}
+
 
 
 -(void) animateCircleLayer
@@ -153,10 +187,18 @@
     [_squareLayer addAnimation:groupAnimation forKey:@"looping"];
 }
 
+-(CAShapeLayer *)generateMaskLayer
+{
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.frame = CGRectMake(-_radius, -_radius, _radius * 2, _radius * 2);
+    layer.allowsGroupOpacity = YES;
+    layer.backgroundColor = [UIColor whiteColor].CGColor;
+    return layer;
+}
 
 -(CAShapeLayer *)generateCircleLayer
 {
-    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+    CAShapeLayer *layer = [CAShapeLayer layer];
     layer.lineWidth = _radius;
     layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:_radius/2 startAngle:(CGFloat)-M_PI_2 endAngle:(CGFloat)(3 * M_PI_2) clockwise:YES].CGPath;
     layer.strokeColor = [UIColor whiteColor].CGColor;
@@ -166,7 +208,7 @@
 
 -(CAShapeLayer *)generateLineLayer
 {
-    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+    CAShapeLayer *layer = [CAShapeLayer layer];
     layer.position = CGPointZero;
     layer.frame = CGRectZero;
     layer.allowsGroupOpacity = YES;
@@ -183,7 +225,7 @@
 
 -(CAShapeLayer *)generateSquareLayer
 {
-    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+    CAShapeLayer *layer = [CAShapeLayer layer];
     layer.position = CGPointZero;
     layer.frame =CGRectMake(-_squareLayerLength / 2, -_squareLayerLength / 2, _squareLayerLength, _squareLayerLength);
     layer.cornerRadius = 1.5;
