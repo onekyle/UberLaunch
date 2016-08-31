@@ -25,6 +25,8 @@
 
 @property (nonatomic,strong) CAMediaTimingFunction *strokeEndTimingFunction;
 @property (nonatomic,strong) CAMediaTimingFunction *circleLayerTimingFunction;
+@property (nonatomic,strong) CAMediaTimingFunction *squareLayerTimingFunction;
+@property (nonatomic,strong) CAMediaTimingFunction *fadeInSquareTimingFunction;
 
 @end
 
@@ -42,9 +44,11 @@
         
         _circleLayer = [self generateCircleLayer];
         _lineLayer = [self generateLineLayer];
+        _squareLayer = [self generateSquareLayer];
         
         [self.layer addSublayer:_circleLayer];
         [self.layer addSublayer:_lineLayer];
+        [self.layer addSublayer:_squareLayer];
     }
     return self;
 }
@@ -55,6 +59,7 @@
     self.layer.anchorPoint = CGPointZero;
     [self animateCircleLayer];
     [self animateLineLayer];
+    [self animateSquareLayer];
 }
 
 
@@ -115,6 +120,39 @@
     [_lineLayer addAnimation:groupAnimation forKey:@"looping"];
 }
 
+-(void) animateSquareLayer
+{
+    // bounds
+    NSValue *b1 = [NSValue valueWithCGRect:CGRectMake(0, 0, 2.0/3.0 * _squareLayerLength, 2.0/3.0 * _squareLayerLength)];
+    NSValue *b2 = [NSValue valueWithCGRect:CGRectMake(0, 0, _squareLayerLength, _squareLayerLength)];
+    NSValue *b3 = [NSValue valueWithCGRect:CGRectZero];
+    
+    CAKeyframeAnimation *boundsAnimation = [CAKeyframeAnimation animationWithKeyPath:@"bounds"];
+    boundsAnimation.values = @[b1, b2, b3];
+    boundsAnimation.timingFunctions = @[self.fadeInSquareTimingFunction, self.squareLayerTimingFunction];
+    boundsAnimation.duration = kAnimationDuration;
+    boundsAnimation.keyTimes = @[@0, @((kAnimationDuration - kAnimationDurationDelay) / kAnimationDuration) , @1];
+    
+    // backgroundColor
+    CABasicAnimation *backgroundColorAnimation = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    backgroundColorAnimation.fromValue = (__bridge id _Nullable)([UIColor whiteColor].CGColor);
+    backgroundColorAnimation.toValue = (__bridge id _Nullable)(UberBlue.CGColor);
+    backgroundColorAnimation.timingFunction = self.squareLayerTimingFunction;
+    backgroundColorAnimation.fillMode = kCAFillModeBoth;
+    backgroundColorAnimation.beginTime = kAnimationDurationDelay * 2.0 / kAnimationDuration;
+    backgroundColorAnimation.duration = kAnimationDuration / (kAnimationDuration - kAnimationDurationDelay);
+    
+    // Group
+    CAAnimationGroup *groupAnimation = [CAAnimationGroup animation];
+    groupAnimation.animations = @[boundsAnimation, backgroundColorAnimation];
+    groupAnimation.repeatCount = MAXFLOAT;
+    groupAnimation.duration = kAnimationDuration;
+    groupAnimation.removedOnCompletion = NO;
+    groupAnimation.beginTime = _beginTime;
+    groupAnimation.timeOffset = _startTimeOffset;
+    [_squareLayer addAnimation:groupAnimation forKey:@"looping"];
+}
+
 
 -(CAShapeLayer *)generateCircleLayer
 {
@@ -143,6 +181,18 @@
     return layer;
 }
 
+-(CAShapeLayer *)generateSquareLayer
+{
+    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+    layer.position = CGPointZero;
+    layer.frame =CGRectMake(-_squareLayerLength / 2, -_squareLayerLength / 2, _squareLayerLength, _squareLayerLength);
+    layer.cornerRadius = 1.5;
+    layer.allowsGroupOpacity = YES;
+    layer.backgroundColor = UberBlue.CGColor;
+    return layer;
+}
+
+
 -(CAMediaTimingFunction *)strokeEndTimingFunction
 {
     if (!_strokeEndTimingFunction) {
@@ -157,6 +207,22 @@
         _circleLayerTimingFunction = [[CAMediaTimingFunction alloc] initWithControlPoints:0.65 :0.0 :0.40 :1.0];
     }
     return _circleLayerTimingFunction;
+}
+
+-(CAMediaTimingFunction *)squareLayerTimingFunction
+{
+    if (!_squareLayerTimingFunction) {
+        _squareLayerTimingFunction = [[CAMediaTimingFunction alloc] initWithControlPoints:0.25 :0.0 :0.20 :1.0];
+    }
+    return _squareLayerTimingFunction;
+}
+
+-(CAMediaTimingFunction *)fadeInSquareTimingFunction
+{
+    if (!_fadeInSquareTimingFunction) {
+        _fadeInSquareTimingFunction = [[CAMediaTimingFunction alloc] initWithControlPoints:0.15 :0 :0.85 :1.0];
+    }
+    return _fadeInSquareTimingFunction;
 }
 
 @end
