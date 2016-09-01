@@ -15,6 +15,7 @@
 		131DDBF71D6AF8D300369098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 131DDBF51D6AF8D300369098 /* LaunchScreen.storyboard */; };
 		131DDC001D6AFD9300369098 /* AnimatedULogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DDBFF1D6AFD9300369098 /* AnimatedULogoView.m */; };
 		131DDC031D6B02E800369098 /* Contans.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DDC021D6B02E800369098 /* Contans.m */; };
+		13A5E61B1D788AF700C7C9BF /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A5E61A1D788AF700C7C9BF /* TitleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		131DDBFF1D6AFD9300369098 /* AnimatedULogoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedULogoView.m; sourceTree = "<group>"; };
 		131DDC011D6B02E800369098 /* Contans.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contans.h; sourceTree = "<group>"; };
 		131DDC021D6B02E800369098 /* Contans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contans.m; sourceTree = "<group>"; };
+		13A5E6191D788AF700C7C9BF /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
+		13A5E61A1D788AF700C7C9BF /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,8 @@
 				131DDBEE1D6AF8D300369098 /* ViewController.m */,
 				131DDBFE1D6AFD9300369098 /* AnimatedULogoView.h */,
 				131DDBFF1D6AFD9300369098 /* AnimatedULogoView.m */,
+				13A5E6191D788AF700C7C9BF /* TitleView.h */,
+				13A5E61A1D788AF700C7C9BF /* TitleView.m */,
 				131DDC011D6B02E800369098 /* Contans.h */,
 				131DDC021D6B02E800369098 /* Contans.m */,
 				131DDBF01D6AF8D300369098 /* Main.storyboard */,
@@ -161,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				131DDBEF1D6AF8D300369098 /* ViewController.m in Sources */,
+				13A5E61B1D788AF700C7C9BF /* TitleView.m in Sources */,
 				131DDBEC1D6AF8D300369098 /* AppDelegate.m in Sources */,
 				131DDC001D6AFD9300369098 /* AnimatedULogoView.m in Sources */,
 				131DDBE91D6AF8D300369098 /* main.m in Sources */,
@@ -323,6 +329,7 @@
 				131DDBFD1D6AF8D300369098 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
