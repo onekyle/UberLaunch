@@ -14,13 +14,19 @@
 
 - (instancetype)initWithTitleFileName:(NSString *)fileName
 {
-    self = [super init];
-    if (self) {
-        self.rippleAnimationKeyTimes = @[@0,@0.61,@0.7,@0.887,@1];
-        self.chimesSplashImage = [UIImage imageNamed:fileName];
+    self.chimesSplashImage = [UIImage imageNamed:fileName];
+    self = [self initWithFrame:CGRectZero];
+    self.rippleAnimationKeyTimes = @[@0,@0.61,@0.7,@0.887,@1];
+    self.frame = CGRectMake(0, 0, self.chimesSplashImage.size.width, self.chimesSplashImage.size.height);
+    
+    return self;
+}
+
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame: frame]) {
         self.layer.contents = (__bridge id _Nullable)(self.chimesSplashImage.CGImage);
         self.layer.shouldRasterize = YES;
-        self.frame = CGRectMake(0, 0, self.chimesSplashImage.size.width, self.chimesSplashImage.size.height);
     }
     return self;
 }
