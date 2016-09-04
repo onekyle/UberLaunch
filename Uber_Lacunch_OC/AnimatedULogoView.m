@@ -37,7 +37,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        _radius = 37.0;
+        _radius = 37.5;
         _squareLayerLength = 21.0;
         _startTimeOffset = 0.7 * kAnimationDuration;
         _beginTime = 0;
@@ -111,7 +111,7 @@
     transformAnimation.timingFunction = self.strokeEndTimingFunction;
     transformAnimation.duration = kAnimationDuration - kAnimationDurationDelay;
     
-    CATransform3D startingTransform = CATransform3DMakeRotation((CGFloat)-M_PI_4, 0, 0, 1);
+    CATransform3D startingTransform = CATransform3DMakeRotation(-M_PI_4, 0, 0, 1);
     startingTransform = CATransform3DScale(startingTransform, 0.25, 0.25, 1);
     transformAnimation.fromValue = [NSValue valueWithCATransform3D:startingTransform];
     transformAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.0, 1.0, 1.0)];
@@ -140,7 +140,9 @@
     transformAnimation.timingFunctions = @[self.strokeEndTimingFunction,self.circleLayerTimingFunction];
     transformAnimation.duration = kAnimationDuration;
     transformAnimation.keyTimes = @[@(0.0),@((kAnimationDuration - kAnimationDurationDelay) / kAnimationDuration),@(1.0)];
-    CATransform3D transform = CATransform3DMakeRotation((CGFloat)(7.0 * M_PI_4), 0.0, 0.0, 1.0);
+    
+    CATransform3D transform = CATransform3DMakeRotation((7.0 * M_PI_4), 0.0, 0.0, 1.0);
+    transform = CATransform3DScale(transform, 0.25, 0.25, 1.0);
     transformAnimation.values = @[[NSValue valueWithCATransform3D:transform],[NSValue valueWithCATransform3D:CATransform3DIdentity],[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.15, 0.15, 1.0)]];
     
     // Group
@@ -200,7 +202,7 @@
 {
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.lineWidth = _radius;
-    layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:_radius/2 startAngle:(CGFloat)-M_PI_2 endAngle:(CGFloat)(3 * M_PI_2) clockwise:YES].CGPath;
+    layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:_radius/2 startAngle:(-M_PI_2) endAngle:(CGFloat)(3 * M_PI_2) clockwise:YES].CGPath;
     layer.strokeColor = [UIColor whiteColor].CGColor;
     layer.fillColor = [UIColor clearColor].CGColor;
     return layer;
