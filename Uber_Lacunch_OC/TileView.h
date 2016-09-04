@@ -1,5 +1,5 @@
 //
-//  TitleView.h
+//  TileView.h
 //  Uber_Lacunch_OC
 //
 //  Created by Durand on 16/9/2.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TitleView : UIView
-@property (nonatomic,strong) UIImage *chimesSplashImage;
+@interface TileView : UIView
+//@property (nonatomic,strong) UIImage *chimesSplashImage;
 @property (nonatomic,strong) NSArray *rippleAnimationKeyTimes;
 @property (nonatomic,assign) BOOL shouldEnableRipple;
 

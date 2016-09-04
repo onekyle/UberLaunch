@@ -1,23 +1,23 @@
 //
-//  TitleView.m
+//  TileView.m
 //  Uber_Lacunch_OC
 //
 //  Created by Durand on 16/9/2.
 //  Copyright © 2016年 com.Durand. All rights reserved.
 //
 
-#import "TitleView.h"
+#import "TileView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Contans.h"
 
-@implementation TitleView
-
+@implementation TileView
+static UIImage *chimesSplashImage = nil;
 - (instancetype)initWithTitleFileName:(NSString *)fileName
 {
-    self.chimesSplashImage = [UIImage imageNamed:fileName];
+    chimesSplashImage = [UIImage imageNamed:fileName];
     self = [self initWithFrame:CGRectZero];
     self.rippleAnimationKeyTimes = @[@0,@0.61,@0.7,@0.887,@1];
-    self.frame = CGRectMake(0, 0, self.chimesSplashImage.size.width, self.chimesSplashImage.size.height);
+    self.frame = CGRectMake(0, 0, chimesSplashImage.size.width, chimesSplashImage.size.height);
     
     return self;
 }
@@ -25,7 +25,7 @@
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame: frame]) {
-        self.layer.contents = (__bridge id _Nullable)(self.chimesSplashImage.CGImage);
+        self.layer.contents = (__bridge id _Nullable)(chimesSplashImage.CGImage);
         self.layer.shouldRasterize = YES;
     }
     return self;

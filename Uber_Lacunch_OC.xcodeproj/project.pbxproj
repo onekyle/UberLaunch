@@ -16,7 +16,7 @@
 		131DDC001D6AFD9300369098 /* AnimatedULogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DDBFF1D6AFD9300369098 /* AnimatedULogoView.m */; };
 		131DDC031D6B02E800369098 /* Contans.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DDC021D6B02E800369098 /* Contans.m */; };
 		13712E611D7AE0F500804E59 /* TileGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13712E601D7AE0F500804E59 /* TileGridView.m */; };
-		13A5E61B1D788AF700C7C9BF /* TitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A5E61A1D788AF700C7C9BF /* TitleView.m */; };
+		13A5E61B1D788AF700C7C9BF /* TileView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13A5E61A1D788AF700C7C9BF /* TileView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +36,8 @@
 		131DDC021D6B02E800369098 /* Contans.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contans.m; sourceTree = "<group>"; };
 		13712E5F1D7AE0F500804E59 /* TileGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileGridView.h; sourceTree = "<group>"; };
 		13712E601D7AE0F500804E59 /* TileGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileGridView.m; sourceTree = "<group>"; };
-		13A5E6191D788AF700C7C9BF /* TitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleView.h; sourceTree = "<group>"; };
-		13A5E61A1D788AF700C7C9BF /* TitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleView.m; sourceTree = "<group>"; };
+		13A5E6191D788AF700C7C9BF /* TileView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileView.h; sourceTree = "<group>"; };
+		13A5E61A1D788AF700C7C9BF /* TileView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TileView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,8 @@
 				131DDBFF1D6AFD9300369098 /* AnimatedULogoView.m */,
 				13712E5F1D7AE0F500804E59 /* TileGridView.h */,
 				13712E601D7AE0F500804E59 /* TileGridView.m */,
-				13A5E6191D788AF700C7C9BF /* TitleView.h */,
-				13A5E61A1D788AF700C7C9BF /* TitleView.m */,
+				13A5E6191D788AF700C7C9BF /* TileView.h */,
+				13A5E61A1D788AF700C7C9BF /* TileView.m */,
 				131DDC011D6B02E800369098 /* Contans.h */,
 				131DDC021D6B02E800369098 /* Contans.m */,
 				131DDBF01D6AF8D300369098 /* Main.storyboard */,
@@ -172,7 +172,7 @@
 			files = (
 				13712E611D7AE0F500804E59 /* TileGridView.m in Sources */,
 				131DDBEF1D6AF8D300369098 /* ViewController.m in Sources */,
-				13A5E61B1D788AF700C7C9BF /* TitleView.m in Sources */,
+				13A5E61B1D788AF700C7C9BF /* TileView.m in Sources */,
 				131DDBEC1D6AF8D300369098 /* AppDelegate.m in Sources */,
 				131DDC001D6AFD9300369098 /* AnimatedULogoView.m in Sources */,
 				131DDBE91D6AF8D300369098 /* main.m in Sources */,

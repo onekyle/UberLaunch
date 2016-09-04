@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TileGridView : UIView
-
+-(instancetype)initWithTileFileName:(NSString *)name;
+- (void)startAnimating;
 @end
