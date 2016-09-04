@@ -10,7 +10,7 @@
 
 @interface TileView : UIView
 //@property (nonatomic,strong) UIImage *chimesSplashImage;
-@property (nonatomic,strong) NSArray *rippleAnimationKeyTimes;
+//@property (nonatomic,strong) NSArray *rippleAnimationKeyTimes;
 @property (nonatomic,assign) BOOL shouldEnableRipple;
 
 

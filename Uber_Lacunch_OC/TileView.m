@@ -12,11 +12,12 @@
 
 @implementation TileView
 static UIImage *chimesSplashImage = nil;
+static NSArray *rippleAnimationKeyTimes = nil;
 - (instancetype)initWithTitleFileName:(NSString *)fileName
 {
     chimesSplashImage = [UIImage imageNamed:fileName];
+    rippleAnimationKeyTimes = @[@0,@0.61,@0.7,@0.887,@1];
     self = [self initWithFrame:CGRectZero];
-    self.rippleAnimationKeyTimes = @[@0,@0.61,@0.7,@0.887,@1];
     self.frame = CGRectMake(0, 0, chimesSplashImage.size.width, chimesSplashImage.size.height);
     
     return self;
@@ -48,7 +49,7 @@ static UIImage *chimesSplashImage = nil;
         // Transform.scale
         CAKeyframeAnimation *scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
         scaleAnimation.values = @[@1, @1, @1.05, @1, @1];
-        scaleAnimation.keyTimes = self.rippleAnimationKeyTimes;
+        scaleAnimation.keyTimes = rippleAnimationKeyTimes;
         scaleAnimation.timingFunctions = @[linearFunction, timingFunction, timingFunction, linearFunction];
         scaleAnimation.beginTime = 0.0;
         scaleAnimation.duration = duration;
@@ -58,7 +59,7 @@ static UIImage *chimesSplashImage = nil;
         CAKeyframeAnimation *positionAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
         positionAnimation.duration = duration;
         positionAnimation.timingFunctions = @[linearFunction, timingFunction, timingFunction, linearFunction];
-        positionAnimation.keyTimes = self.rippleAnimationKeyTimes;
+        positionAnimation.keyTimes = rippleAnimationKeyTimes;
         positionAnimation.values = @[zeroPointValue, zeroPointValue, [NSValue valueWithCGPoint:rippleOffset], zeroPointValue, zeroPointValue];
         positionAnimation.additive = YES;
         [animations addObject:positionAnimation];

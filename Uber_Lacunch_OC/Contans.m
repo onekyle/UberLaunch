@@ -11,4 +11,4 @@
 const NSTimeInterval kAnimationDuration = 3.0;
 const NSTimeInterval kAnimationDurationDelay = 0.5;
 const NSTimeInterval kAnimationTimeOffset = 0.35 * kAnimationDuration;
-const NSTimeInterval kRippleMagnitudeMultiplier = 0.0025;
+const NSTimeInterval kRippleMagnitudeMultiplier = 0.025;
