@@ -74,7 +74,7 @@
 - (UILabel *)generateLogoLabel
 {
     UILabel *label = [UILabel new];
-    label.text = @"         BER";
+    label.text = @"           BER";
     label.font = [UIFont systemFontOfSize:50];
     label.textColor = [UIColor whiteColor];
     [label sizeToFit];
@@ -134,6 +134,7 @@
     keyframe.keyTimes = @[@0.0, @0.45, @0.887, @1.0];
     keyframe.values = @[@0.75, @0.75, @1.0, @1.0];
     keyframe.beginTime = beginTime;
+    
     keyframe.timeOffset = kAnimationTimeOffset;
     
     [_containerView.layer addAnimation:keyframe forKey:@"scale"];
@@ -145,7 +146,7 @@
             
             vector = CGPointMake(vector.x * _kRippleDelayMultiplier * distance, vector.y * _kRippleDelayMultiplier * distance);
             
-            [view startAnimatingWithDuration:kAnimationDuration beginTime:_beginTime rippleDelay:_kRippleDelayMultiplier * distance rippleOffset:vector];
+            [view startAnimatingWithDuration:kAnimationDuration beginTime:beginTime rippleDelay:_kRippleDelayMultiplier * (NSTimeInterval)distance rippleOffset:vector];
         }
     }
 }
@@ -165,7 +166,7 @@
 {
     CGFloat length = [self distanceFromCenterViewWithView:view];
     
-    if (!_centerTileView && !length) {
+    if (!_centerTileView || !length) {
         return CGPointZero;
     }
     
